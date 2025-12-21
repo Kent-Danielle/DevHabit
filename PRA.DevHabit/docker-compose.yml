@@ -1,0 +1,10 @@
+services:
+  pra.devhabit.api:
+    image: ${DOCKER_REGISTRY-}pradevhabitapi
+    build:
+      context: .
+      dockerfile: PRA.DevHabit.API/Dockerfile
+    ports:
+        - 5000:8080
+        - 5001:8081
+    
