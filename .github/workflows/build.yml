@@ -26,7 +26,7 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Restore
-        run: dotnet restore  .sln
+        run: dotnet restore  PRA.DevHabit.sln
 
       - name: Build
         run: dotnet build PRA.DevHabit.sln --configuration Release --no-restore
