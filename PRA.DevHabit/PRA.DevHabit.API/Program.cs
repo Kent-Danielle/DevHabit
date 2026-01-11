@@ -11,7 +11,7 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers(options =>
 {
-    options.ReturnHttpNotAcceptable = true;
+    //options.ReturnHttpNotAcceptable = true; // NOTE: For dev purposes, this is too strict
 
 })
 .AddXmlSerializerFormatters();

@@ -15,6 +15,11 @@ public sealed record HabitsCollectionDto
 // CreateHabitModel/Model
 
 // can do either classes or record
+
+// NOTE: 
+// adding required in the DTO properties allows us to have Required rule validation 
+// without explicitly adding it throughout the application
+// This is some basic validation implemented through having a DTO. There are other ways to apply more complex validation.
 public sealed record HabitDto
 {
     public required string Id { get; init; }
