@@ -15,7 +15,7 @@ public sealed class Habit
     public Frequency Frequency { get; set; }
     public Target Target { get; set; }
     public HabitStatus Status { get; set; }
-    public bool IsArcvived { get; set; } // Separate from status, it's for data archiving
+    public bool IsArchived { get; set; } // Separate from status, it's for data archiving
     public DateOnly? EndDate { get; set; }
     public Milestone? Milestone { get; set; }
     public DateTime CreatedAtUtc { get; set; }
