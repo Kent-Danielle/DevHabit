@@ -111,4 +111,30 @@ public class HabitsController(ApplicationDbContext dbContext) : ControllerBase
 
         return NoContent();
     }
+
+    /* NOTE: 
+     * We should question if we truly want a hard or soft delete
+     * 
+     * REMARK:
+     * Is soft-deleting hiding a business operation?
+     * e.g. if we should soft delete a habit, should we just use archiving? and if we should archive, shouldn't it be a PUT? 
+     * Lesson here is we should consider business context + semantics
+     */
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteHabit(string id)
+    {
+        Habit? habit = await dbContext.Habits.FirstOrDefaultAsync(h => h.Id == id);
+
+        if (habit is null)
+        {
+            // We can do StatusCode(StatusCodes.Status410Gone); but we need to track if it was ever created or it just does not exist; USEFUL for soft delete
+            return NotFound();
+        } 
+
+        dbContext.Remove(habit);
+
+        await dbContext.SaveChangesAsync();
+
+        return NoContent();
+    }
 }
