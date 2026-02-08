@@ -30,12 +30,12 @@ public class HabitsController(ApplicationDbContext dbContext) : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<HabitDto>> GetHabit(string id)
+    public async Task<ActionResult<HabitWithTagsDto>> GetHabit(string id)
     {
-        HabitDto? habit = await dbContext
+        HabitWithTagsDto? habit = await dbContext
             .Habits
             .Where(h => h.Id == id)
-            .Select(HabitQueries.ProjectToDto())
+            .Select(HabitQueries.ProjectToDtoWithTags())
             .FirstOrDefaultAsync();
 
         return habit is null ? NotFound() : Ok(habit);
@@ -72,6 +72,24 @@ public class HabitsController(ApplicationDbContext dbContext) : ControllerBase
 
         return NoContent(); // Common PUT http response
     }
+
+    #region Option 1 for handling child resources
+
+    //// Note: we should not use tags/ because that will mean we are creating a tag resource and will not infer the relationship between habit and tag
+    //// habits/:id/tags/tagId
+    //[HttpPut("{id}/tags/{tagId}")]
+    //public async Task<ActionResult> AddTagToHabit(string id, string tagId)
+    //{
+    //    return Ok();
+    //}
+
+    //// habits/:id/tags/tagId
+    //[HttpDelete("{id}/tags/{tagId}")]
+    //public async Task<ActionResult> RemoveTagFromHabit(string id, string tagId)
+    //{
+    //    return Ok();
+    //}
+    #endregion
 
     /* NOTES:
      * It kind of mirrors a useReducer pattern in React

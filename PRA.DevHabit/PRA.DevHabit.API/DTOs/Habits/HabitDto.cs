@@ -1,4 +1,5 @@
-﻿using PRA.DevHabit.Data.Entities;
+﻿using Newtonsoft.Json;
+using PRA.DevHabit.Data.Entities;
 
 namespace PRA.DevHabit.API.DTOs.Habits;
 
@@ -36,6 +37,15 @@ public sealed record HabitDto
     public DateTime? UpdatedAtUtc { get; init; }
     public DateTime? LastCompletedAtUtc { get; init; }
 }
+
+// Option 1: extend HabitDto; need to unseal it. This is simple but introduces dependency 
+// Option 2: duplicate it to a different file
+//public sealed record HabitWithTagsDto : HabitDto
+//{
+//    [JsonProperty(Order = int.MaxValue)] // force this prop at the end of the solution
+//    public required string[] Tags { get; init; }
+//}
+
 
 public sealed record FrequencyDto
 {
