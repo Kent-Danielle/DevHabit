@@ -21,6 +21,10 @@ public sealed class Habit
     public DateTime CreatedAtUtc { get; set; }
     public DateTime? UpdatedAtUtc { get; set; } // Optional, not all data will be updated
     public DateTime? LastCompletedAtUtc { get; set; }
+
+    // Note: we can already see the benefit of having a DTO layer; no need to expose these navigation props
+    public List<HabitTag> HabitTags { get; set; } // "navigation prop"
+    public List<Tag> Tags { get; set; } // called "skip navigation prop"
 }
 
 public enum HabitType

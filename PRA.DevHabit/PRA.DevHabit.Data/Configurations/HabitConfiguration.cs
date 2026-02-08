@@ -27,5 +27,10 @@ public sealed class HabitConfiguration : IEntityTypeConfiguration<Habit>
             targetBuilder.Property(t => t.Unit).HasMaxLength(100);
         });
         builder.OwnsOne(h => h.Milestone); // No need to configure that it's nullable here since it's already defined in Habit.cs
+
+        //Configure skip navigation property
+        builder.HasMany(h => h.Tags)
+            .WithMany()
+            .UsingEntity<HabitTag>();
     }
 }
